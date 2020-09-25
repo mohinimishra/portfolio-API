@@ -25,15 +25,36 @@ module.exports.projectDetails = function (slug) {
     })
 }
 
-module.exports.create = function (data) {
+module.exports.createProject = function (data) {
     return new Promise(async (resolve, reject) => {
         try {
             let newProject = await new Project(data);
-            let count = await newProject.save().countDocuments();
             let createDetail = await newProject.save()
-            resolve({ count, createDetail })
+            resolve({ createDetail })
         } catch (err) {
             reject(err)
+        }
+    })
+}
+
+module.exports.deleteProject = function (_id) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let del = await Project.findOneAndDelete({ _id })
+            resolve({ del })
+        } catch (err) {
+            reject(err)
+        }
+    })
+}
+
+module.exports.updateProject = function (id, data) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let updateProj = await Project.findByIdAndUpdate(id, { $set: data })
+            resolve(({ updateProj }))
+        } catch (error) {
+            reject(error)
         }
     })
 }

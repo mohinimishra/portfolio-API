@@ -1,4 +1,5 @@
-const Blog = require('./blogSchema')
+const Blog = require('./blogSchema');
+const { response } = require('express');
 
 module.exports.blogList = function () {
     return new Promise(async (resolve, reject) => {
@@ -28,11 +29,21 @@ module.exports.create = function (data) {
     return new Promise(async (resolve, reject) => {
         try {
             let newBlog = await new Blog(data);
-            let count = await newBlog.save().countDocuments();
             let createDetail = await newBlog.save()
-            resolve({ count, createDetail })
+            resolve({ createDetail })
         } catch (err) {
             reject(err)
+        }
+    })
+}
+
+module.exports.update = function (slug, data) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let updateBlog = await Blog.findByIdAndUpdate({ slug: slug }, { $set: data })
+            resolve({ updateBlog })
+        } catch (error) {
+            next(err)
         }
     })
 }
