@@ -23,7 +23,7 @@ userSchema.pre('save', function (next) {
     }
 })
 
-userSchema.method = {
+userSchema.methods = {
     encryptPass: function (plainPassword) {
         if (!plainPassword) {
             return "Password Incorrect"

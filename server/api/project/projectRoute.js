@@ -5,16 +5,14 @@ router.route('/')
     .get(Controller.getList)
     .post(Controller.create)
 
-router.route('/:slug')
+router.route('/slug/:slug')
     .get(Controller.getDetails)
 
-router.route('/:_id/delete')
+router.route('/:_id')
     .delete(Controller.delete)
+    .put(Controller.update)
 
-router.route('/:_id/update')
-    .post(Controller.update)
 
-router.route('/:id/upload-image')
-    .post(Controller.uploadImg)
+
 
 module.exports = router;

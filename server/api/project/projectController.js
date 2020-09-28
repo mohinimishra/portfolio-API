@@ -53,19 +53,19 @@ module.exports.delete = (req, res, next) => {
 
 module.exports.update = (req, res, next) => {
     let data = req.body
-    data.slug = data.name.split(' ').join('-').toLowerCase()
-    let t = data.tags.split(',')
-    let classes = ['success', 'danger', 'info', 'warning'];
-    data.tags = t.map((ele, i) => {
-        return { name: ele, class: classes[i] }
-    })
-    ProjectService.updateProject(req.params._id, data).then(({ updateProj }) => {
-        res.status(200).json({ message: "Project Updated Succesfully", data: updateProj })
-    }).catch((err) => { next(err) })
+    if (data.name || data.tags) {
+        let t = data.tags.split(',')
+        let classes = ['success', 'danger', 'info', 'warning'];
+        data.tags = t.map((ele, i) => {
+            return { name: ele, class: classes[i] }
+        })
+        ProjectService.updateProject(req.params._id, data).then(({ updateProj }) => {
+            res.status(200).json({ message: "Project Updated Succesfully", data: updateProj })
+        }).catch((err) => { next(err) })
+    } else {
+        ProjectService.updateProject(req.params._id, data).then(({ updateProj }) => {
+            res.status(200).json({ message: "Project Updated Succesfully", data: updateProj })
+        }).catch((err) => { next(err) })
+    }
 }
 
-module.exports.uploadImg = (req, res, next) => {
-    ProjectService.updateProject(req.params.id, { image: `/image/${req.file.originalname}` }).then((updateProj) => {
-        res.status(200).json({ message: 'Image Upload Successfully', data: updateProj })
-    }).catch((err) => next(err))
-}

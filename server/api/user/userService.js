@@ -13,14 +13,17 @@ module.exports.list = function () {
 }
 
 module.exports.create = function (data) {
-    return new Promise(async (resolve, reject) => {
-        try {
-            let newUser = await new User(data)
-            let detail = await newUser.save()
-            let count = await newUser.save().countDocument()
-            resolve({ detail, count })
-        } catch (err) {
-            reject(err)
-        }
-    })
+
+    let newUser = new User(data);
+
+    return newUser.save()
+    // return new Promise(async (resolve, reject) => {
+    //     try {
+    //         let newUser = new User(data)
+    //         let detail = await newUser.save();
+    //         resolve(detail)
+    //     } catch (err) {
+    //         reject(err)
+    //     }
+    // })
 }

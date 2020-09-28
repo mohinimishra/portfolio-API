@@ -37,13 +37,25 @@ module.exports.create = function (data) {
     })
 }
 
-module.exports.update = function (slug, data) {
+module.exports.deleteBlog = function (_id) {
     return new Promise(async (resolve, reject) => {
         try {
-            let updateBlog = await Blog.findByIdAndUpdate({ slug: slug }, { $set: data })
-            resolve({ updateBlog })
+            let del = await Blog.findByIdAndDelete(_id)
+            resolve({ del })
         } catch (error) {
-            next(err)
+            reject(error)
+        }
+    })
+}
+
+module.exports.updateBlog = function (_id, data) {
+    console.log(data)
+    return new Promise(async (resolve, reject) => {
+        try {
+            let updateblog = await Blog.findByIdAndUpdate(_id, { $set: data }, { new: true })
+            resolve(updateblog)
+        } catch (error) {
+            reject(error)
         }
     })
 }

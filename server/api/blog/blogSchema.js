@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const blogSchema = new Schema({
     name: { type: String, required: true },
-    slug: { type: String, required: true, unique: true },
+    slug: { type: String, unique: true },
     description: { type: String },
     githubUrl: { type: String, trim: true },
     image: { type: String, trim: true },

@@ -51,7 +51,7 @@ module.exports.deleteProject = function (_id) {
 module.exports.updateProject = function (id, data) {
     return new Promise(async (resolve, reject) => {
         try {
-            let updateProj = await Project.findByIdAndUpdate(id, { $set: data })
+            let updateProj = await Project.findByIdAndUpdate(id, { $set: data }, { new: true })
             resolve(({ updateProj }))
         } catch (error) {
             reject(error)
