@@ -1,4 +1,5 @@
 const User = require('./userSchema');
+const { v4: uuid } = require('uuid');
 
 module.exports.list = function () {
     return new Promise(async (resolve, reject) => {
@@ -13,7 +14,7 @@ module.exports.list = function () {
 }
 
 module.exports.create = function (data) {
-
+    data.apiKey = uuid();
     let newUser = new User(data);
 
     return newUser.save()

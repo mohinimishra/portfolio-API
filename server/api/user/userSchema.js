@@ -9,6 +9,8 @@ const userSchema = new Schema({
     mobile: { type: Number, require: true },
     createdOn: { type: Date, default: Date.now },
     updatedOn: { type: Date },
+    role: { type: String, enum: ['admin', 'user'], default: 'user', required: true },
+    apiKey: { type: String, required: true },
     status: { type: String, enum: ['active', 'inactive'], default: 'active' },
 }, { timestamps: true },
 )

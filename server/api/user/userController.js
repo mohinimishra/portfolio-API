@@ -1,4 +1,5 @@
 const UserService = require('./userService');
+const { v4: uuid } = require('uuid')
 
 module.exports.getList = (req, res, next) => {
     UserService.list().then(({ count, data }) => {
@@ -8,6 +9,7 @@ module.exports.getList = (req, res, next) => {
 
 module.exports.create = (req, res, next) => {
     let dt = req.body;
+
     UserService.create(dt).then((data) => {
         res.status(201).json({ 'message': "Contact created Succesfully", data })
     }).catch((err) => next(err))
