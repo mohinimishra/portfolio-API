@@ -25,8 +25,8 @@ exports.authenticate = function (req, res, next) {
 
 
         User.findOne({ "apiKey": req.headers["x-access-apikey"] }).then(data => {
-            console.log(data)
-            if (data.role == "admin") {
+            console.log('role', data)
+            if (data && data.role == "admin") {
                 req.user = data._id
                 next()
             } else {
@@ -47,3 +47,6 @@ exports.signToken = function (id) {
 
 // echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse" | 
 // sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list
+
+
+
